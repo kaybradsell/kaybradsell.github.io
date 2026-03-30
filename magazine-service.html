@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magazine Service | Kay Bradsell</title>
+    <link rel="stylesheet" href="projectstyle.css"> <!-- your new project CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Kay Bradsell</h1>
+        <p>Undergraduate in Computer Science and Games Technology</p>
+        <nav>
+            <a href="https://github.com/PocketSalt" target="_blank">Github</a>
+            <a href="index.html">Home</a>
+            <a href="https://www.linkedin.com/in/kay-bradsell-53371a305/" target="_blank">LinkedIn</a>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+
+        <!-- Project Overview -->
+        <section class="project-overview">
+            <h2>Weekly Magazine Service</h2>
+            <p>
+                A Weekly Magazine Service backend written in Java.
+                Includes customers (paying and associate), payment methods (credit and debit), magazines, and supplements. <br />
+                <img src="data/imgs/MagazineView.png" alt="Magazine Service Screenshot" class="project-image">
+                This project is an assignment for ICT373: Software Architectures. The assignment requires us to create the backend for a magazine service. Assignment 2 will have us create the front-end for the magazine service in JavaFX.
+            </p>
+
+            <p>
+                Unfortunately, this project is not yet complete. As of now, the program only outputs to a CLI. As stated before, come Assignment 2, this project will have a full application interface.
+            </p>
+        </section>
+
+        <!-- Graphics part -->
+        <section class="project-images">
+            <h3>Customer Design</h3>
+
+            <p>
+                The system models two types of customers: <strong>PayingCustomer</strong> and <strong>AssociateCustomer</strong>, both inheriting from a common <strong>Customer</strong> superclass.
+                This reduces duplication of shared data such as name, email, and subscribed supplements.
+            </p>
+            <br />
+            <p><strong>Key design decisions:</strong></p>
+            <ul>
+                <li>Used inheritance to share common data and behaviour between customer types.</li>
+                <li>Stored <strong>Supplements by reference</strong> to ensure global updates (e.g. price changes) propagate across all customers.</li>
+                <li>Modelled a <strong>bidirectional relationship</strong> between PayingCustomer and AssociateCustomer.</li>
+                <li>Enforced a constraint preventing deletion of a PayingCustomer while associated customers still exist.</li>
+            </ul>
+            <br />
+            <p>
+                This design ensures flexibility, avoids data duplication, and maintains consistency across the system.
+            </p>
+            <br />
+            <p>The customer UML is shown below:</p>
+            <img src="data/imgs/MagazineCustomerUML.png" alt="UML diagram for Customer" class="project-image">
+
+        </section>
+
+        <!-- ECS -->
+        <section class="project-images">
+            <h3>Payment Method Design</h3>
+
+            <p>
+                Payment methods are implemented using inheritance and a factory pattern to allow flexible creation at runtime.
+            </p>
+            <br />
+            <ul>
+                <li><strong>PaymentMethod</strong> defines shared data such as account name and validation.</li>
+                <li><strong>Credit</strong> and <strong>Debit</strong> extend the base class and are designed for future extension.</li>
+                <li>A <strong>factory pattern</strong> is used to create payment types dynamically using an enum-based system.</li>
+            </ul>
+            <br />
+            <p>
+                This approach allows new payment methods (e.g. PayPal) to be added with minimal changes to existing code.
+            </p>
+            <br />
+            <p>The payment UML is shown below:</p>
+            <img src="data/imgs/MagazinePaymentUML.png" alt="UML diagram for Customer" class="project-image">
+        </section>
+
+        <section class="project-images">
+            <h3>Full UML</h3>
+
+            <p>
+                Shown below is the full UML for the backend.
+            </p>
+            <img src="data/imgs/MagazineFullUML.png" alt="UML diagram for Customer" class="project-image">
+        </section>
+
+        <!-- Demo Video -->
+        <section class="project-demo">
+            <h3>Demo Video</h3>
+            <div class="project-video-wrapper">
+                <video controls>
+                    <source src="data/videos/MagazineSystem.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p>A short demo showcasing the back-end using a CLI.</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>2026 Kay Bradsell</p>
+    </footer>
+
+</body>
+</html>
