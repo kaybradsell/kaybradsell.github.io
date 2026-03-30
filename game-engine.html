@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Game Engine | Kay Bradsell</title>
+    <link rel="stylesheet" href="projectstyle.css"> <!-- your new project CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Kay Bradsell</h1>
+        <p>Undergraduate in Computer Science and Games Technology</p>
+        <nav>
+            <a href="https://github.com/PocketSalt" target="_blank">Github</a>
+            <a href="index.html">Home</a>
+            <a href="https://www.linkedin.com/in/kay-bradsell-53371a305/" target="_blank">LinkedIn</a>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+
+        <!-- Project Overview -->
+        <section class="project-overview">
+            <h2>3D Game Engine</h2>
+            <p>
+                A 3D Game Engine developed in C++ using OpenGL 3.3 Core Profile and GLFW.
+                Includes shader management, runtime camera and lighting control, and basic 3D rendering functionality. <br />
+                <img src="data/imgs/GameEngineView.png" alt="3D Game Engine Screenshot" class="project-image">
+                This project is an assignment for ICT397: Advanced Game Engine Design and Programming. The assignment requires us to form teams of three and create a 3D game engine by facading all external APIs and enabling the use of Lua scripts for game logic.
+            </p>
+
+            <p>
+                Unfortunately, this project is not yet complete. As of now, the program implements an ECS, a Graphics facade, and a Physics facade. It is planned to include Lua scripting in the future.
+            </p>
+
+            <p>
+                The UI used is <a href="https://github.com/ocornut/imgui" target="_blank">Dear ImGui</a>, originally written by ocornut, and contributed to by nearly 500 people on Github.
+            </p>
+        </section>
+
+        <!-- Graphics part -->
+        <section class="project-images">
+            <h3>Graphics Facade</h3>
+
+            <p>
+                The Graphics Facade is the core of the rendering system in my 3D Game Engine.
+                It provides a unified interface for rendering objects, managing textures, and handling shaders, abstracting away the underlying graphics API.
+                That being said, the program currently only supports OpenGL 3.3 Core Profile.
+            </p>
+
+            <br />
+
+            <p>Key components include:</p>
+            <ul>
+                <li><strong>Graphics:</strong> Abstract interface for rendering operations, with factories to access Texture, Shader, and Model subclasses.</li>
+                <li><strong>Texture:</strong> Abstract class for texture management, ensuring proper binding and usage.</li>
+                <li><strong>Shader:</strong> Abstract class for shader program management, including reading in shaders and compiling.</li>
+                <li><strong>Model:</strong> Class that stores the vertex, index, and texture coordinate data for a Model.</li>
+            </ul>
+
+            <p>The factory interface of my Graphics sytem is shown below:</p>
+            <pre><code class="cpp">// Factory interface for Graphics Facade
+virtual Shader* CreateShader(ShaderType shaderID, const std::string& vert, const std::string& frag) = 0;
+virtual Shader* GetShader(ShaderType shaderID) const = 0;
+
+virtual Texture* CreateTexture(const std::string& textureName, const std::string& typeName, const std::string& file) = 0;
+virtual Texture* GetTexture(const std::string& textureName) const = 0;
+
+virtual Model* LoadModel(const std::string& modelName, const std::string& file) = 0;
+virtual void DrawModel(Model* model, Shader* shader, const ECS::TransformComponent& transform) = 0;
+</code></pre>
+            <p> Do note, however, that strings are used as the lua reader, created by a team member, relies on using strings.</p>
+        </section>
+
+        <!-- ECS -->
+        <section class="project-images">
+            <h3>Entity Component System</h3>
+
+            <p>
+                The Entity Component System (ECS) is the main system that controls the game engine.
+                It is responsible for managing all entities in a scene, calling their Updates() and Render() functions every frame, and facilitating communication between components and external systems in the Game Engine.
+            </p>
+
+            <p>Key components include:</p>
+            <ul>
+                <li><strong>Scene:</strong> A class that stores all entities within itself, and handles calling Update() and Render() every frame.</li>
+                <li><strong>Entity:</strong> A class that stores an unique ID, tag, and a list of Component subclasses.</li>
+                <li><strong>Component:</strong> An abstract class that provides the blueprint for a Component subclass to use, that being a Start(), Update() and Render() function. Subclasses will only override the methods they require.</li>
+            </ul>
+
+            <p>The abstract Component interface is shown below</p>
+            <pre><code style="cpp"> // Component.h
+class Component
+{
+public:
+    virtual ~Component() = default;
+
+    virtual void Start() {};
+    virtual void Update(float deltaTime) {};
+    virtual void Render(Graphics::Graphics* graphics) {};
+
+    friend class ECS::Entity;
+
+protected:
+    Entity* entity = nullptr;
+};
+</code></pre>
+            <p>Friend is used here as only an entity is allowed to change and access the entity that stores this component. Note that the destructor does not delete the entity pointer. This is because the Component only aggregates the Entity.</p>
+        </section>
+
+        <!-- Demo Video -->
+        <section class="project-demo">
+            <h3>Demo Video</h3>
+            <div class="project-video-wrapper">
+                <video controls>
+                    <source src="data/videos/GameEngineDemo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p>A short demo showcasing the engine's rendering and ECS system.</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>2026 Kay Bradsell</p>
+    </footer>
+
+</body>
+</html>
