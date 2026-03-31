@@ -49,13 +49,13 @@ nav a
     font-weight: 500;
     padding: 0.5rem 1rem;
     border-radius: 25px;
-    background: rgba(0, 0, 0, 0.2); /* or 255 255 255 */
+    background: rgba(50, 0, 20, 0.2); /* or 255 255 255 */
     transition: background 0.3s, transform 0.3s;
 }
 
     nav a:hover
     {
-        background: rgba(0, 0, 0, 0.5); /* or 255 255 255 */
+        background: rgba(50, 0, 20, 0.5); /* or 255 255 255 */
         transform: translateY(-3px);
     }
 

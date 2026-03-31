@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper AI | Kay Bradsell</title>
+    <link rel="stylesheet" href="pagestyle.css">
+</head>
+<body>
+
+    <header>
+        <h1>Kay Bradsell</h1>
+        <p>Undergraduate in Computer Science and Games Technology</p>
+        <nav>
+            <a href="https://github.com/kaybradsell" target="_blank">Github</a>
+            <a href="index.html">Home</a>
+            <a href="https://www.linkedin.com/in/kay-bradsell-53371a305/" target="_blank">LinkedIn</a>
+        </nav>
+    </header>
+
+    <div class="side-left"></div>
+    <div class="side-right"></div>
+
+    <div class="content-wrapper">
+
+        <!-- Project Overview -->
+        <section class="project-overview">
+            <h2>Minesweeper AI</h2>
+            <p>
+                An AI Minesweeper Solver written in Python using Google OR-Tools. <br />
+                It uses CSP solving for determining absolute safe moves, and uses Probabilistic Inference to predict safe moves given it cannot reason with CSP.
+            </p>
+            <img src="data/imgs/MinesweeperFullView.png" alt="3D Game Engine Screenshot" class="project-image">
+            <p>
+                This project was an assignment for ICT206: Intelligent Systems. The assignment required us to create an AI program in whichever domain we preferred, using any tools we wished.
+            </p>
+
+            <p>
+                My original idea was to create a Tetris AI using a Genetic Algorithm, but determined that it would be too large a scope to complete in six weeks, and therefore settled for a Minesweeper AI instead.
+            </p>
+
+            <p>
+                This program was written in Python, using <a href="https://www.pygame.org/news" target="_blank">PyGame</a> for the application window, and <a href="https://developers.google.com/optimization" target="_blank">Google's OR-Tools</a> python library for the CSP.
+            </p>
+
+            <p> The full write up and repository is available on <a href="https://github.com/kaybradsell/Minesweeper-AI" target="_blank">Github</a>.</p>
+        </section>
+
+        <!-- Graphics part -->
+        <section class="project-images">
+            <h3>Constraint Satisfaction Problem</h3>
+
+            <p>
+                The CSP part of the AI was handled by Google OR-Tools' CP-SAT solver. It iterates over every visible tile with a value, and compares the value of that tiles with the number of flags adjacent to it.
+                If there are unknown tiles adjacent to that tile, it will add that and the amount of uncovered bombs surrounding it to the constraints.
+                Then, those constraints are fed into a customised solution collector from the CP-SAT solver to find every possible solution. If, in every possible solution, a tile is never a bomb, that tile is 100% bomb-free and is safe to uncover.
+            </p>
+
+            <p>The code that determines if a cell is guaranteed safe/unsafe:</p>
+            <pre><code class="python"># Grabbing all 100% bomb/non-bomb tiles
+solver = cp_model.CpSolver()
+
+safeMoves = set()
+bombMoves = set()
+
+# Check every unknown cell and all possible solutions
+collector = SolutionCollector(cellVars)
+solver.SearchForAllSolutions(model, collector)
+
+for cell in unknowns: # set that stores all tiles with unknown neighbours
+    vals = [sol[cell] for sol in collector.solutions]
+    if all(v == 0 for v in vals):
+        safeMoves.add(cell)
+    elif all(v == 1 for v in vals):
+        bombMoves.add(cell)
+</code></pre>
+
+            <p>
+                If the CSP solver cannot find any valid moves...
+            </p>
+        </section>
+
+        <!-- ECS -->
+        <section class="project-images">
+            <h3>Probabilistic Inference</h3>
+
+            <p>
+                This part of the AI is for handling uncertainty. As the CSP portion can only handle guaranteed safe moves, any board conditions that do not guarantee a safe move requires the AI to switch to using Probabilistic Inference.
+            </p>
+
+            <p>
+                All that it does is calculate the amount of times a tile shows up in the constraints list as a bomb. If it is a bomb, it increases its chances of being an unsafe tile.
+                When all calculations are done, the program will return as a safe move the tile with the lowest probability of being a bomb.
+            </p>
+
+            <p>
+                In the off chance there is a tie, it will randomly pick any tile.
+            </p>
+
+            <p>The code that determines a cell to pick.</p>
+            <pre><code style="python"># Using Probabilistic Inference
+if probMap:
+    safestCell = None
+    lowest = 1.0
+
+    for cell, prob in probMap.items():
+        if prob < lowest:
+            lowest = prob
+            safestCell = cell
+    safeMoves.add(safestCell)
+</code></pre>
+            <p>Very simple algorithm that finds the cell with the lowest probability and returns it.</p>
+        </section>
+
+        <!-- Demo Video -->
+        <section class="project-demo">
+            <h3>Demo Video</h3>
+            <div class="project-video-wrapper">
+                <video controls>
+                    <source src="data/videos/MinesweeperDemo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p>A short demo showcasing the AI solving multiple Expert games.</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>2026 Kay Bradsell</p>
+    </footer>
+
+</body>
+</html>
