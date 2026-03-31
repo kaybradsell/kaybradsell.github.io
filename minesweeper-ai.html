@@ -26,7 +26,7 @@
         <section class="project-overview">
             <h2>Minesweeper AI</h2>
             <p>
-                An AI Minesweeper Solver written in Python using Google OR-Tools. <br />
+                An AI Minesweeper Solver written in Python using Google OR-Tools.
                 It uses CSP solving for determining absolute safe moves, and uses Probabilistic Inference to predict safe moves given it cannot reason with CSP.
             </p>
             <img src="data/imgs/MinesweeperFullView.png" alt="3D Game Engine Screenshot" class="project-image">
@@ -50,7 +50,10 @@
             <h3>Constraint Satisfaction Problem</h3>
 
             <p>
-                The CSP part of the AI was handled by Google OR-Tools' CP-SAT solver. It iterates over every visible tile with a value, and compares the value of that tiles with the number of flags adjacent to it.
+                The CSP part of the AI was handled by Google OR-Tools' CP-SAT solver.
+            </p>
+            <p>
+                It iterates over every visible tile with a value, and compares the value of that tiles with the number of flags adjacent to it.
                 If there are unknown tiles adjacent to that tile, it will add that and the amount of uncovered bombs surrounding it to the constraints.
                 Then, those constraints are fed into a customised solution collector from the CP-SAT solver to find every possible solution. If, in every possible solution, a tile is never a bomb, that tile is 100% bomb-free and is safe to uncover.
             </p>
