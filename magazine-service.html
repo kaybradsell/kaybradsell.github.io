@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Magazine Service | Kay Bradsell</title>
-    <link rel="stylesheet" href="projectstyle.css"> <!-- your new project CSS -->
+    <link rel="stylesheet" href="pagestyle.css">
 </head>
 <body>
 
@@ -17,6 +17,9 @@
         </nav>
     </header>
 
+    <div class="side-left"></div>
+    <div class="side-right"></div>
+
     <div class="content-wrapper">
 
         <!-- Project Overview -->
@@ -24,8 +27,12 @@
             <h2>Weekly Magazine Service</h2>
             <p>
                 A Weekly Magazine Service backend written in Java.
-                Includes customers (paying and associate), payment methods (credit and debit), magazines, and supplements. <br />
-                <img src="data/imgs/MagazineView.png" alt="Magazine Service Screenshot" class="project-image">
+                Includes customers (paying and associate), payment methods (credit and debit), magazines, and supplements.
+            </p>
+
+            <img src="data/imgs/MagazineView.png" alt="Magazine Service Screenshot" class="project-image">
+
+            <p>
                 This project is an assignment for ICT373: Software Architectures. The assignment requires us to create the backend for a magazine service. Assignment 2 will have us create the front-end for the magazine service in JavaFX.
             </p>
 
@@ -42,7 +49,7 @@
                 The system models two types of customers: <strong>PayingCustomer</strong> and <strong>AssociateCustomer</strong>, both inheriting from a common <strong>Customer</strong> superclass.
                 This reduces duplication of shared data such as name, email, and subscribed supplements.
             </p>
-            <br />
+
             <p><strong>Key design decisions:</strong></p>
             <ul>
                 <li>Used inheritance to share common data and behaviour between customer types.</li>
@@ -50,11 +57,11 @@
                 <li>Modelled a <strong>bidirectional relationship</strong> between PayingCustomer and AssociateCustomer.</li>
                 <li>Enforced a constraint preventing deletion of a PayingCustomer while associated customers still exist.</li>
             </ul>
-            <br />
+
             <p>
                 This design ensures flexibility, avoids data duplication, and maintains consistency across the system.
             </p>
-            <br />
+
             <p>The customer UML is shown below:</p>
             <img src="data/imgs/MagazineCustomerUML.png" alt="UML diagram for Customer" class="project-image">
 
@@ -67,17 +74,17 @@
             <p>
                 Payment methods are implemented using inheritance and a factory pattern to allow flexible creation at runtime.
             </p>
-            <br />
+
             <ul>
                 <li><strong>PaymentMethod</strong> defines shared data such as account name and validation.</li>
                 <li><strong>Credit</strong> and <strong>Debit</strong> extend the base class and are designed for future extension.</li>
                 <li>A <strong>factory pattern</strong> is used to create payment types dynamically using an enum-based system.</li>
             </ul>
-            <br />
+
             <p>
                 This approach allows new payment methods (e.g. PayPal) to be added with minimal changes to existing code.
             </p>
-            <br />
+
             <p>The payment UML is shown below:</p>
             <img src="data/imgs/MagazinePaymentUML.png" alt="UML diagram for Customer" class="project-image">
         </section>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>3D Game Engine | Kay Bradsell</title>
-    <link rel="stylesheet" href="projectstyle.css"> <!-- your new project CSS -->
+    <link rel="stylesheet" href="pagestyle.css">
 </head>
 <body>
 
@@ -17,6 +17,9 @@
         </nav>
     </header>
 
+    <div class="side-left"></div>
+    <div class="side-right"></div>
+
     <div class="content-wrapper">
 
         <!-- Project Overview -->
@@ -24,8 +27,10 @@
             <h2>3D Game Engine</h2>
             <p>
                 A 3D Game Engine developed in C++ using OpenGL 3.3 Core Profile and GLFW.
-                Includes shader management, runtime camera and lighting control, and basic 3D rendering functionality. <br />
-                <img src="data/imgs/GameEngineView.png" alt="3D Game Engine Screenshot" class="project-image">
+                Includes shader management, runtime camera and lighting control, and basic 3D rendering functionality.
+            </p>
+            <img src="data/imgs/GameEngineView.png" alt="3D Game Engine Screenshot" class="project-image">
+            <p>
                 This project is an assignment for ICT397: Advanced Game Engine Design and Programming. The assignment requires us to form teams of three and create a 3D game engine by facading all external APIs and enabling the use of Lua scripts for game logic.
             </p>
 
@@ -47,8 +52,6 @@
                 It provides a unified interface for rendering objects, managing textures, and handling shaders, abstracting away the underlying graphics API.
                 That being said, the program currently only supports OpenGL 3.3 Core Profile.
             </p>
-
-            <br />
 
             <p>Key components include:</p>
             <ul>
