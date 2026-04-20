@@ -35,7 +35,7 @@
             </p>
 
             <p>
-                Unfortunately, this project is not yet complete. As of now, the program implements an ECS, a Graphics facade, and a Physics facade. It is planned to include Lua scripting in the future.
+                This project has been completed for Assignment 1, and will be extended for Assignment 2 to allow for Animation, Sound, and UI/Menus, as well as creating a full 3D game with only lua scripts.
             </p>
 
             <p>
@@ -110,6 +110,26 @@ protected:
 };
 </code></pre>
             <p>Friend is used here as only an entity is allowed to change and access the entity that stores this component. Note that the destructor does not delete the entity pointer. This is because the Component only aggregates the Entity.</p>
+        </section>
+
+        </section>
+
+        <!-- ECS -->
+        <section class="project-images">
+            <h3>Miscellaneous</h3>
+
+            <p>
+                The game engine also supports lua scripting, where it can read in lua scripts to load the scene, models, textures, and lua scripts as components which can be added to an Entity and receives all Update() and Render() calls. It also facades the Bullet Physics Library into a Physics Component for the ECS.
+            </p>
+
+            <p>Additional features written by Kay Bradsell:</p>
+            <ul>
+                <li><strong>Input Handling:</strong> An API Indepedent Input Handler that provides enum Keys, and can convert them to GLFW, and can store key states, allowing the user to get key presses, and key holds, and key releases.</li>
+                <li><strong>Scene Serialisation/Deserialisation:</strong> The ability for the program to load in any scene using a lua table, which stores all Entities, their Components, and the data within the Components, and vice versa (saving).</li>
+                <li><strong>Player Movement and Camera:</strong> A lua script that receives WASD as movement input and moves the player using those inputs. It also allows the mouse to control the player, and for player movement to be based on camera forward.</li>
+            </ul>
+
+            <p>Other parts of the engine - the physics and terrain was written by William Thorpe, and Lua script handling by Sebastian D'Alessandro.</p>
         </section>
 
         <!-- Demo Video -->
